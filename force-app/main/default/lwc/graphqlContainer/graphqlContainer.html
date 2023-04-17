@@ -1,32 +1,67 @@
 <template>
-  <lightning-card title="GraphQL API for LWC">
-    <div class="slds-box">
-      <lightning-combobox
-        name="accounts"
-        label="Account"
-        placeholder="Select an account"
-        value={accountId}
-        options={accountOptions}
-        onchange={handleAccountChange}
-        class="slds-m-bottom_x-small"
-      ></lightning-combobox>
-      <template lwc:if={hasContacts}>
-        <lightning-datatable
-          key-field="Id"
-          data={contactsData}
-          columns={contactsColumns}
-        ></lightning-datatable>
-      </template>
-      <template lwc:elseif={hasAccounts}>
-        <c-notification-message variant="info">
-          No contacts found for this account.
-        </c-notification-message>
-      </template>
-      <template lwc:if={error}>
-        <c-notification-message variant="error">
-          {error}
-        </c-notification-message>
-      </template>
+  <lightning-card
+    title="GraphQL API for LWC"
+    icon-name="standard:lightning_component"
+  >
+    <div class="slds-p-around_medium">
+      <lightning-layout padding="around-small">
+        <lightning-layout-item size="6" class="slds-p-right_medium">
+          <div class="slds-box">
+            <p class="slds-text-heading_small slds-m-bottom_x-small">
+              Parent query
+            </p>
+            <lightning-combobox
+              name="accounts"
+              label="Account"
+              placeholder="Select an account"
+              value={accountId}
+              options={accountOptions}
+              onchange={handleAccountChange}
+              class="slds-m-bottom_x-small"
+            ></lightning-combobox>
+            <template lwc:if={hasContacts}>
+              <lightning-datatable
+                key-field="id"
+                data={contactsData}
+                columns={contactsColumns}
+                onrowselection={handleContactSelection}
+                max-row-selection="1"
+              ></lightning-datatable>
+            </template>
+            <template lwc:elseif={hasAccounts}>
+              <c-notification-message variant="info">
+                No contacts found for this account.
+              </c-notification-message>
+            </template>
+            <template lwc:if={error}>
+              <c-notification-message variant="error">
+                {error}
+              </c-notification-message>
+            </template>
+          </div>
+        </lightning-layout-item>
+        <lightning-layout-item size="6">
+          <template lwc:if={hasNotes}>
+            <div class="slds-box">
+              <p class="slds-text-heading_small slds-m-bottom_x-small">
+                Related query
+              </p>
+              <lightning-layout padding="around-small" multiple-rows>
+                <template for:each={contactNotes} for:item="note">
+                  <lightning-layout-item size="4" key={note.id}>
+                    <div class="slds-box slds-m-horizontal_xxx-small sticky">
+                      <p class="slds-text-heading_small slds-m-bottom_x-small">
+                        {note.title}
+                      </p>
+                      <p class="slds-text-body_small">{note.body}</p>
+                    </div>
+                  </lightning-layout-item>
+                </template>
+              </lightning-layout>
+            </div>
+          </template>
+        </lightning-layout-item>
+      </lightning-layout>
     </div>
   </lightning-card>
 </template>

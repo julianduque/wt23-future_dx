@@ -202,9 +202,15 @@
                 <name>Reactive_Standard_Components_Section1_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
+                    <name>AddressLabel</name>
+                    <fieldText
+          >&lt;p&gt;&lt;strong style=&quot;color: rgb(85, 85, 85);&quot;&gt;Address&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
                     <name>Address_Text</name>
                     <dataType>String</dataType>
-                    <fieldText>Address</fieldText>
+                    <fieldText>Street</fieldText>
                     <fieldType>InputField</fieldType>
                     <isRequired>false</isRequired>
                 </fields>

@@ -8,6 +8,7 @@ export default class GraphqlContainer extends LightningElement {
   accountsError = [];
   contactsResults = [];
   contactsError = [];
+  contactNotes = [];
 
   // Accounts Query
   @wire(graphql, {
@@ -46,33 +47,10 @@ export default class GraphqlContainer extends LightningElement {
 
   // Contacts by Account Query
   @wire(graphql, {
-    query: gql`
-      query contactsByAccount($accountId: ID!) {
-        uiapi {
-          query {
-            Contact(where: { AccountId: { eq: $accountId } })
-              @category(name: "recordQuery") {
-              edges {
-                node {
-                  Id
-                  Name @category(name: "StringValue") {
-                    value
-                  }
-                  Phone @category(name: "StringValue") {
-                    value
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    `,
-    variables: "$contactVariables"
+    query: "$contactsQuery",
+    variables: "$contactsVariables"
   })
   contactsQueryResult({ data, errors }) {
-    if (!this.accountId) return;
-
     if (data) {
       this.contactsError = [];
       this.contactsResults = data.uiapi.query.Contact.edges.map(
@@ -85,8 +63,51 @@ export default class GraphqlContainer extends LightningElement {
     }
   }
 
+  get contactsQuery() {
+    if (!this.accountId) return undefined;
+
+    return gql`
+      query contactsByAccount($accountId: ID!) {
+        uiapi {
+          query {
+            Contact(where: { AccountId: { eq: $accountId } })
+              @category(name: "recordQuery") {
+              edges {
+                node {
+                  Id
+                  Name @category(name: "StringValue") {
+                    value
+                  }
+                  Email @category(name: "StringValue") {
+                    value
+                  }
+                  Phone @category(name: "StringValue") {
+                    value
+                  }
+                  Notes @category(name: "childRelationship") {
+                    edges {
+                      node {
+                        Id
+                        Title @category(name: "StringValue") {
+                          value
+                        }
+                        Body @category(name: "StringValue") {
+                          value
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
+  }
+
   // GraphQL query variable in a getter to make them reactive
-  get contactVariables() {
+  get contactsVariables() {
     return {
       accountId: this.accountId
     };
@@ -102,15 +123,35 @@ export default class GraphqlContainer extends LightningElement {
   get contactsColumns() {
     return [
       { label: "Name", fieldName: "name" },
+      { label: "Email", fieldName: "email", type: "email" },
       { label: "Phone", fieldName: "phone", type: "phone" }
     ];
   }
 
   get contactsData() {
     return this.contactsResults.map((contact) => ({
+      id: contact?.Id,
       name: contact?.Name?.value,
-      phone: contact?.Phone?.value
+      email: contact?.Email?.value,
+      phone: contact?.Phone?.value,
+      notes: contact?.Notes?.edges?.map((edge) => ({
+        id: edge?.node?.Id,
+        title: edge?.node?.Title?.value,
+        body: edge?.node?.Body?.value
+      }))
     }));
+  }
+
+  handleContactSelection({ detail }) {
+    const selectedRows = detail.selectedRows;
+    const contactId = selectedRows?.shift()?.id;
+    if (contactId) {
+      const contact = this.contactsData.find((c) => c.id === contactId);
+      console.log(contact);
+      this.contactNotes = contact?.notes ?? [];
+    } else {
+      this.contactNotes = [];
+    }
   }
 
   get hasAccounts() {
@@ -119,6 +160,10 @@ export default class GraphqlContainer extends LightningElement {
 
   get hasContacts() {
     return this.accountId != null && this.contactsResults.length > 0;
+  }
+
+  get hasNotes() {
+    return this.contactNotes.length > 0;
   }
 
   get error() {

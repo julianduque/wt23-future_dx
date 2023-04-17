@@ -1,0 +1,14 @@
+<template>
+  <div class={theme} role="status">
+    <div class="slds-media__figure">
+      <lightning-icon
+        icon-name={icon}
+        variant="inverse"
+        alternative-text={altText}
+      ></lightning-icon>
+    </div>
+    <div class="slds-media__body">
+      <slot></slot>
+    </div>
+  </div>
+</template>

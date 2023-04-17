@@ -1,0 +1,32 @@
+<template>
+  <lightning-card title="GraphQL API for LWC">
+    <div class="slds-box">
+      <lightning-combobox
+        name="accounts"
+        label="Account"
+        placeholder="Select an account"
+        value={accountId}
+        options={accountOptions}
+        onchange={handleAccountChange}
+        class="slds-m-bottom_x-small"
+      ></lightning-combobox>
+      <template lwc:if={hasContacts}>
+        <lightning-datatable
+          key-field="Id"
+          data={contactsData}
+          columns={contactsColumns}
+        ></lightning-datatable>
+      </template>
+      <template lwc:elseif={hasAccounts}>
+        <c-notification-message variant="info">
+          No contacts found for this account.
+        </c-notification-message>
+      </template>
+      <template lwc:if={error}>
+        <c-notification-message variant="error">
+          {error}
+        </c-notification-message>
+      </template>
+    </div>
+  </lightning-card>
+</template>

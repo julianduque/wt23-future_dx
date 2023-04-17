@@ -1,0 +1,121 @@
+<template>
+  <lightning-layout multiple-rows="true">
+    <lightning-layout-item padding="around-small" size="4">
+      <lightning-card title="No security" icon-name="standard:account">
+        <lightning-button
+          label="Load accounts"
+          variant="brand"
+          onclick={handleNoSecurity}
+          slot="actions"
+        ></lightning-button>
+        <lightning-datatable
+          key-field="id"
+          data={accountsNoSecurity}
+          columns={accountColumns}
+        ></lightning-datatable>
+        <p slot="footer">No security</p>
+      </lightning-card>
+    </lightning-layout-item>
+    <lightning-layout-item padding="around-small" size="4">
+      <lightning-card title="Security Enforced" icon-name="standard:account">
+        <lightning-button
+          label="Load accounts"
+          variant="brand"
+          onclick={handleSecurityEnforced}
+          slot="actions"
+        ></lightning-button>
+        <lightning-datatable
+          key-field="id"
+          data={accountsSecurityEnforced}
+          columns={accountColumns}
+        ></lightning-datatable>
+        <p slot="footer">with SECURITY_ENFORCED</p>
+      </lightning-card>
+    </lightning-layout-item>
+    <lightning-layout-item padding="around-small" size="4">
+      <lightning-card title="User Mode" icon-name="standard:account">
+        <lightning-button
+          label="Load accounts"
+          variant="brand"
+          onclick={handleUserMode}
+          slot="actions"
+        ></lightning-button>
+        <lightning-datatable
+          key-field="id"
+          data={accountsUserMode}
+          columns={accountColumns}
+        ></lightning-datatable>
+        <p slot="footer">with USER_MODE</p>
+      </lightning-card>
+    </lightning-layout-item>
+    <lightning-layout-item padding="around-small" size="4">
+      <lightning-card title="Insert: No security" icon-name="standard:account">
+        <lightning-button
+          label="Save"
+          variant="brand"
+          onclick={handleInsertNoSecurity}
+          slot="actions"
+        ></lightning-button>
+        <div class="slds-p-around_small">
+          <lightning-input
+            label="Name"
+            value={nameNoSecurity}
+            onchange={handleNameNoSecurityChange}
+          ></lightning-input>
+          <lightning-input
+            label="Secure"
+            value={secureNoSecurity}
+            onchange={handleSecureNoSecurityChange}
+          ></lightning-input>
+        </div>
+        <p slot="footer">Insert with no security</p>
+      </lightning-card>
+    </lightning-layout-item>
+    <lightning-layout-item padding="around-small" size="4">
+      <lightning-card title="Insert: As System" icon-name="standard:account">
+        <lightning-button
+          label="Save"
+          variant="brand"
+          onclick={handleInsertAsSystem}
+          slot="actions"
+        ></lightning-button>
+        <div class="slds-p-around_small">
+          <lightning-input
+            label="Name"
+            value={nameAsSystem}
+            onchange={handleNameAsSystemChange}
+          ></lightning-input>
+          <lightning-input
+            label="Secure"
+            value={secureAsSystem}
+            onchange={handleSecureAsSystemChange}
+          ></lightning-input>
+        </div>
+        <p slot="footer">Insert with as system</p>
+      </lightning-card>
+    </lightning-layout-item>
+    <lightning-layout-item padding="around-small" size="4">
+      <lightning-card title="Insert: As User" icon-name="standard:account">
+        <lightning-button
+          label="Save"
+          variant="brand"
+          onclick={handleInsertAsUser}
+          slot="actions"
+        ></lightning-button>
+        <div class="slds-p-around_small">
+          <lightning-input
+            label="Name"
+            value={nameAsUser}
+            onchange={handleNameAsUserChange}
+          ></lightning-input>
+          <lightning-input
+            label="Secure"
+            value={secureAsUser}
+            onchange={handleSecureAsUserChange}
+          ></lightning-input>
+        </div>
+        <p slot="footer">Insert with as user</p>
+      </lightning-card>
+    </lightning-layout-item>
+  </lightning-layout>
+</template>

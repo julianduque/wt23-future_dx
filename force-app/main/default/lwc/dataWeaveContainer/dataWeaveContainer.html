@@ -1,0 +1,58 @@
+<template>
+  <lightning-layout padding="around-small">
+    <lightning-layout-item size="6">
+      <lightning-card title="From CSV to JSON" icon-name="doctype:csv">
+        <lightning-button
+          variant="brand"
+          slot="actions"
+          label="Convert"
+          onclick={handleCsvToJson}
+        ></lightning-button>
+        <lightning-layout>
+          <lightning-layout-item padding="around-small" size="6">
+            <lightning-textarea
+              placeholder="Please enter valid CSV data"
+              label="CSV"
+              value={csvInputText}
+              onchange={handleCsvInput}
+            ></lightning-textarea>
+          </lightning-layout-item>
+          <lightning-layout-item padding="around-small" size="6">
+            <lightning-textarea
+              label="JSON"
+              value={jsonOutputText}
+              read-only
+            ></lightning-textarea>
+          </lightning-layout-item>
+        </lightning-layout>
+      </lightning-card>
+    </lightning-layout-item>
+    <lightning-layout-item size="6">
+      <lightning-card title="From JSON to XML" icon-name="doctype:xml">
+        <lightning-button
+          variant="brand"
+          slot="actions"
+          label="Convert"
+          onclick={handleJsonToXml}
+        ></lightning-button>
+        <lightning-layout>
+          <lightning-layout-item padding="around-small" size="6">
+            <lightning-textarea
+              placeholder="Please enter a valid JSON array of objects"
+              label="JSON"
+              value={jsonInputText}
+              onchange={handleJsonInput}
+            ></lightning-textarea>
+          </lightning-layout-item>
+          <lightning-layout-item padding="around-small" size="6">
+            <lightning-textarea
+              label="XML"
+              value={xmlOutputText}
+              read-only
+            ></lightning-textarea>
+          </lightning-layout-item>
+        </lightning-layout>
+      </lightning-card>
+    </lightning-layout-item>
+  </lightning-layout>
+</template>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Flow
+  xmlns="http://soap.sforce.com/2006/04/metadata"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+>
+    <actionCalls>
+        <name>Get_Books</name>
+        <label>Get Books</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <actionName>BookService.Get Books</actionName>
+        <actionType>externalService</actionType>
+        <connector>
+            <targetReference>Books</targetReference>
+        </connector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <outputParameters>
+            <assignToReference>Books_Result</assignToReference>
+            <name>2XX</name>
+        </outputParameters>
+    </actionCalls>
+    <apiVersion>57.0</apiVersion>
+    <dynamicChoiceSets>
+        <name>Book_Collection</name>
+        <collectionReference>Books_Result</collectionReference>
+        <dataType>String</dataType>
+        <displayField>title</displayField>
+        <object xsi:nil="true" />
+        <valueField>id</valueField>
+    </dynamicChoiceSets>
+    <environments>Default</environments>
+    <interviewLabel>Demo: Web Callout {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Demo: Web Callout</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>Books</name>
+        <label>Books</label>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Books_List</name>
+            <choiceReferences>Book_Collection</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Books</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Books</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>Books_Result</name>
+        <apexClass>ExternalService__BookService_Getx20Books_OUT_2XX</apexClass>
+        <dataType>Apex</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

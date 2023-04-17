@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <logo>DX_Icon_Square_2Color_RGB</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Discover the Future of Salesforce Development</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>FutureDX</label>
+    <navType>Standard</navType>
+    <tabs>Reactive_Components</tabs>
+    <tabs>Data_Table</tabs>
+    <tabs>Web_Data_Integration</tabs>
+    <tabs>GraphQL_in_LWC</tabs>
+    <tabs>User_Mode_Database_Operations</tabs>
+    <tabs>DataWeave_in_Apex</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>
